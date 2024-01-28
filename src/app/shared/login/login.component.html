@@ -1,0 +1,23 @@
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-4">
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column justify-content-center" style="min-height:84vh;">
+          <h3 class="text-center">Login</h3>  
+          <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
+              formControlName="email"
+              >
+              <div id="emailHelp" class="form-text text-danger">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" name="password"
+              formControlName="password"
+              >
+            </div>
+          <p class="float-md-right form-text">Create Account</p>
+            <button type="submit" class="btn btn-primary float-right" [disabled]="loginForm.invalid">Login</button>
+          </form>
+    </div>
+</div>
