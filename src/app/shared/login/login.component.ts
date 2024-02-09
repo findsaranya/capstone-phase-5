@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ILoginForm } from '../login.model';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ILoginForm } from '../shared.model';
 
 @Component({
   selector: 'shared-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [NgIf,NgClass,ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -22,12 +22,25 @@ export class SharedLoginComponent {
 
 
   onSubmit():void{
-    console.log(this.loginForm);
+
+    if (this.loginForm.valid) {
+      console.log(this.loginForm);
     
-    this.loginFromEmit.next({
-      email:this.loginForm.value.email || " ",
-      password:this.loginForm.value.password || ""
-    });
+      this.loginFromEmit.next({
+        email:this.loginForm.value.email || " ",
+        password:this.loginForm.value.password || ""
+      });
+    } else {
+      Object.values(this.loginForm.controls).forEach(
+        (control: AbstractControl) => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        }
+      );
+    }
+   
   }
 
 }

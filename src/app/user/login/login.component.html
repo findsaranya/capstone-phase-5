@@ -1,1 +1,8 @@
+<div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="loginFailure">
+    <strong>{{errorMsg}}</strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="loginFailure=false">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
 <shared-login (loginFromEmit)="onSubmit($event)"></shared-login>

@@ -5,32 +5,35 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav navbar-right">
+        <ul class="navbar-nav navbar-right"> 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/">About</a>
+            <a class="nav-link">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="login">Contact</a>
+            <a class="nav-link">Contact</a>
           </li>
-          <ng-template #notLoggedIn>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="login">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" routerLink="/register">Register</a>
-              </li>
-          </ng-template>
           <ng-container *ngIf="authService.userLoggedInOb$;else notLoggedIn">
             <li class="nav-item">
-                <a class="nav-link">View All Movies</a>
+                <a class="nav-link" routerLink="/movies">View All Movies</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link">User details</a>
+                <a class="nav-link" routerLink="/logout">Logout</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">{{"Hi, "+authService.user?.name | titlecase}}</a>
               </li>
           </ng-container>
-          
-        
         </ul>
       </div>
     </div>
   </nav>
+
+  <ng-template #notLoggedIn>
+    <li class="nav-item">
+        <a class="nav-link" routerLink="login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/register">Register</a>
+      </li>
+  </ng-template>
+ 

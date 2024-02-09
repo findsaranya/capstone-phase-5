@@ -8,20 +8,22 @@ export class AppInitService {
         private router = inject(Router);
          init():Promise<void>{
                 return new Promise((resolve,reject) => {
-                        const userToken = this.authService.userToken;
-                        const adminToken = this.authService.adminToken;
-                        console.log(userToken,adminToken);
-                       // this.router.navigate(["/"]);
-                        resolve();
-                        // if(userToken){
-                        //   this.authService.userLoggedIn.next(true);
-
-                        //    resolve();
-                        // }
-                        // if(adminToken){
-                        //   this.authService.adminLoggedIn.next(true);
-                        //   resolve();
-                        // }
+                        const userId = this.authService.userId;
+                        //const adminId = this.authService.adminId;
+                        if(userId){
+                         this.authService.getUser(userId).subscribe({
+                                next : (response) => {
+                                  this.authService.user = response;
+                                  this.authService.changeUserLoggedInStatus(true);
+                                  resolve();
+                                },
+                                error : resolve
+                         })
+                        }else{
+                                resolve();
+                        }
+                       
+                       
 
                 })
                 

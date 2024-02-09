@@ -5,19 +5,34 @@
           <h3 class="text-center">Login</h3>  
           <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
-              <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
+              <input type="email" class="form-control" name="email"
+              aria-describedby="emailHelp"
               formControlName="email"
-              >
-              <div id="emailHelp" class="form-text text-danger">We'll never share your email with anyone else.</div>
+              [ngClass]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched ? ['border','border-danger'].join(' ') : null">
+             <div class="form-errors">
+                <span class="form-text text-danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')">
+                 Email Required
+                </span>
+                <span class="form-text text-danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched && loginForm.get('email')?.hasError('email')">
+                  Invalid Email
+                 </span>
+             </div>
+            
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control" name="password"
               formControlName="password"
+              [ngClass]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? ['border','border-danger'].join(' ') : null"
               >
+              <div class="form-errors">
+                <span class="form-text text-danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">
+                 Password Required
+                </span>
+             </div>
             </div>
           <p class="float-md-right form-text">Create Account</p>
-            <button type="submit" class="btn btn-primary float-right" [disabled]="loginForm.invalid">Login</button>
+            <button type="submit" class="btn btn-primary float-right">Login</button>
           </form>
     </div>
 </div>

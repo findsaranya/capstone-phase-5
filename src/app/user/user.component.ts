@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterLinkWithHref, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { FooterComponent, HeaderComponent } from '../shared';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [RouterOutlet, RouterLinkWithHref, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   template: `
     <app-header></app-header>
     <div class="container">

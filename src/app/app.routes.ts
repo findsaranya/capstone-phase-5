@@ -8,4 +8,6 @@ export const routes: Routes = [
     {
     path : 'admin',
     loadChildren : () => import("./admin/admin.routes")
-}];
+},
+{path: '**',loadComponent : () => import("./notfound/notfound.component").then(c => c.NotfoundComponent)} 
+];
