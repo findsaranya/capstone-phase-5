@@ -9,6 +9,7 @@ import { authEndpoints } from './authEndpoints';
 @Injectable()
 export class AuthService {
   private _user:IUser | null = null;
+  private _admin:IUser|null = null;
   private _userLoggedIn = new BehaviorSubject<boolean>(false);
   private _adminLoggedIn = new BehaviorSubject<boolean>(false);
   private _http:HttpClient = inject(HttpClient);
@@ -22,8 +23,16 @@ export class AuthService {
     return this._user || null;
   }
 
+  get admin():IUser | null {
+    return this._admin || null;
+  }
+
   set user(userInfo:IUser){
      this._user = userInfo;
+  }
+
+  set admin(admiInfo:IUser){
+    this._admin = admiInfo;
   }
 
  get userLoggedInOb$():boolean{

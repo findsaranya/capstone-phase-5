@@ -26,7 +26,6 @@ export class LoginComponent {
         this._authService.changeUserLoggedInStatus(true);
         this._authService.user = response;
         this._authService.setLocalStorage("userId",JSON.stringify(this._authService.user.id));
-        //localStorage.setItem("user",JSON.stringify(this._authService.user.id));
         this._router.navigate(["/movies"]);
       },
       error : (err:HttpErrorResponse) => {
