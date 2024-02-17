@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core';
 import { ILoginForm, SharedLoginComponent } from 'src/app/shared';
 
@@ -16,21 +17,19 @@ export class LoginComponent {
   errorMsg = "";
   private _authService = inject(AuthService);
   private _router = inject(Router);
+  private _toastr: ToastrService = inject(ToastrService);
 
   onSubmit(loginDetails : ILoginForm):void{
     this._authService.userLogin(loginDetails).subscribe({
       next : (response) => {
-        this.loginFailure = false;
         this._authService.changeAdminLoggedInStatus(true);
         this._authService.admin = response;
         this._authService.setLocalStorage("adminId",JSON.stringify(this._authService.admin.id));
+        this._toastr.success("Success","You are LoggedIn");
         this._router.navigate(["/admin"]);
       },
       error : (err:HttpErrorResponse) => {
-        console.log(err);
-        this.errorMsg = err.error.message
-        this.loginFailure=true;
-
+        this._toastr.error("Failure",err.error.message);
       }
     });
   }

@@ -2,6 +2,7 @@ import { Route } from "@angular/router";
 import { AdminComponent } from "./admin.component";
 import { adminGuard, nonAdminGuard } from "../core";
 import { Role } from "../shared";
+import { GenreService } from "./genre";
 
 export default [{
     path: "",
@@ -20,6 +21,7 @@ export default [{
         },
         {
             path:"genre",
+            providers:[GenreService],
             loadComponent : () => import("./genre/genre.component").then(c => c.GenreComponent)
         },
         {
