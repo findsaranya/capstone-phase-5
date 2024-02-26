@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { genreEndpoints } from './genre.endpoint';
-import {  IGenre, IGenreData, IGenreListPayload, IGenreListResponse, IGenrePayload } from './genre.model';
+import {  IGenreData, IGenreListPayload, IGenreListResponse, IGenrePayload, IGenresList } from './genre.model';
 import { environment } from 'src/environments/environment.development';
+import { IGenre } from 'src/app/shared';
 
 @Injectable()
 export class GenreService {
@@ -27,5 +28,10 @@ export class GenreService {
     getGenreById(genreId:string):Observable<IGenre>{
         const url = environment.apiUrl + genreEndpoints.getGenreById;
         return this._http.get<IGenre>(url + genreId);
+    }
+
+    getGenres():Observable<IGenre[]>{
+        const url = environment.apiUrl+genreEndpoints.getGenres;
+        return this._http.get<IGenresList>(url).pipe(map(response => response.data));
     }
 }

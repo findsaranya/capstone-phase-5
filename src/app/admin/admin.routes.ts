@@ -3,6 +3,8 @@ import { AdminComponent } from "./admin.component";
 import { adminGuard, nonAdminGuard } from "../core";
 import { Role } from "../shared";
 import { GenreService } from "./genre";
+import { TheatreService } from "./theatre";
+import { MovieService } from "./movie/movie.service";
 
 export default [{
     path: "",
@@ -26,10 +28,12 @@ export default [{
         },
         {
             path:"theatre",
+            providers:[TheatreService],
             loadComponent : () => import("./theatre/theatre.component").then(c => c.TheatreComponent)
         },
         {
             path:"movie",
+            providers:[TheatreService,GenreService,MovieService],
             loadComponent:() => import("./movie/movie.component").then(c=>c.MovieComponent)
         },
         {

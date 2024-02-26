@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -8,9 +8,9 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ToastrService } from 'ngx-toastr';
 import { IGenreModalData, IGenrePayload } from '../genre.model';
 import { GenreService } from '../genre.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-genre-modal',

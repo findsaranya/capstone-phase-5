@@ -1,10 +1,7 @@
 import { FormControl } from "@angular/forms";
-import { IAPIResponse } from "src/app/shared";
+import { IAPIResponse, IGenre } from "src/app/shared";
 
-export interface IGenre{
-    id:   number;
-    name: string;
-}
+
 
 export interface IGenrePayload{
     name : string;
@@ -25,8 +22,12 @@ export interface IGenreListPayload{
     size:number
 }
 
-export interface IGenreListResponse extends IAPIResponse{
+export interface IGenreListResponse extends IAPIResponse<IGenreData>{
     data : IGenreData
+}
+
+export interface IGenresList extends  IAPIResponse<IGenre[]>{
+    data : IGenre[];
 }
 
 export interface IGenreData{

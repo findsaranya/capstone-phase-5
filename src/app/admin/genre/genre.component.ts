@@ -7,14 +7,14 @@ import { MatTableModule } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, map, of, tap } from 'rxjs';
 import { AddGenreModalComponent } from './add-genre-modal/add-genre-modal.component';
-import { IGenre, IGenreModalData } from './genre.model';
+import { IGenreModalData } from './genre.model';
 import { GenreService } from './genre.service';
-import { JsonPipe } from '@angular/common';
+import { IGenre } from 'src/app/shared';
 
 @Component({
   selector: 'app-genre',
   standalone: true,
-  imports: [MatTableModule, MatIconModule, MatButtonModule, MatDialogModule,MatPaginatorModule,JsonPipe],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, MatDialogModule,MatPaginatorModule],
   templateUrl: './genre.component.html',
   styleUrls: ['./genre.component.scss'],
 })
@@ -93,7 +93,6 @@ export class GenreComponent implements OnInit,AfterViewInit {
 
 
   private getAllGenres(intialLoad=false):void{
-    console.log("pagin",this.paginator?.pageIndex,this.paginator?.pageSize)
     const payload = {
       page : intialLoad ?this.pagination.pageIndex: this.paginator?.pageIndex || this.pagination.pageIndex,
       size:intialLoad ? this.pagination.size : this.paginator?.pageSize || this.pagination.size
