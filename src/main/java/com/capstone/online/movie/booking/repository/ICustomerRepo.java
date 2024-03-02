@@ -7,5 +7,6 @@ import com.capstone.online.movie.booking.entity.Customer;
 
 @Repository
 public interface ICustomerRepo extends JpaRepository<Customer, Integer> {
-
+	 Long countByEmail(String email);
+	 Customer findByEmailAndPassword(String email,String password);
 }

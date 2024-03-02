@@ -25,6 +25,21 @@ public ResponseEntity<APIErrorMessage> handleUserException(CustomerNotFoundExcep
 	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new APIErrorMessage(ex.getMessage(),HttpStatus.BAD_REQUEST.toString() ));
 }
 
+@ExceptionHandler(MovieNotFoundException.class)
+public ResponseEntity<APIErrorMessage> handleMovieException(MovieNotFoundException ex) {
+	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new APIErrorMessage(ex.getMessage(),HttpStatus.BAD_REQUEST.toString() ));
+}
+
+@ExceptionHandler(TheatreNotFoundException.class)
+public ResponseEntity<APIErrorMessage> handleTheatreException(TheatreNotFoundException ex) {
+	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new APIErrorMessage(ex.getMessage(),HttpStatus.BAD_REQUEST.toString() ));
+}
+
+@ExceptionHandler(EmailAlreadyExistsException.class)
+public ResponseEntity<APIErrorMessage> handleEmailExistException(EmailAlreadyExistsException ex) {
+	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new APIErrorMessage(ex.getMessage(),HttpStatus.BAD_REQUEST.toString() ));
+}
+
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 @ExceptionHandler(MethodArgumentNotValidException.class)
 public ResponseEntity<Map<String, String>> handleValidationExceptions(

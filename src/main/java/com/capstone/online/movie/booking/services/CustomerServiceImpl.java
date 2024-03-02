@@ -44,12 +44,18 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Override
 	public Customer authenticateUser(String email, String password) {
-		return null;
+		Customer cust = custRepo.findByEmailAndPassword(email, password);
+		if(cust == null) {
+			throw new CustomerNotFoundException("Invalid Login Credentials!!");
+		}
+		
+		return cust;
 	}
 
 	@Override
 	public Boolean checkEmailExists(String email) {
-		return null;
+		Long result = custRepo.countByEmail(email);
+		return result == 0 ? false : true;
 	}
 
 }

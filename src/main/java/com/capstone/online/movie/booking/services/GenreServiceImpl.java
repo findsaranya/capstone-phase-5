@@ -3,6 +3,8 @@ package com.capstone.online.movie.booking.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.capstone.online.movie.booking.entity.Genre;
@@ -22,11 +24,6 @@ public class GenreServiceImpl implements IGenreService {
 	@Override
 	public Genre updateGenre(Genre genre) {
 		return genreRepo.save(genre);
-	}
-
-	@Override
-	public List<Genre> getGenreList() {
-		return genreRepo.findAll();
 	}
 
 	@Override
@@ -50,6 +47,22 @@ public class GenreServiceImpl implements IGenreService {
 	@Override
 	public Long countByName(String name) {
 		return genreRepo.countByName(name);
+	}
+
+	@Override
+	public List<Genre> getRecentGenreList() {
+	 return genreRepo.findFirst3ByOrderByIdDesc();
+	}
+
+	@Override
+	public Page<Genre> getGenreList(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return genreRepo.findAll(pageable);
+	}
+
+	@Override
+	public List<Genre> getAllGenreList() {
+		return genreRepo.findAll();
 	}
 
 }
