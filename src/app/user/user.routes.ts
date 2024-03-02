@@ -2,6 +2,8 @@ import { Route } from "@angular/router";
 import { nonUserGuard, userGuard } from "../core";
 import { Role } from "../shared";
 import { RegisterService } from "./register";
+import { GenreService } from "../admin/genre";
+import { MovieService } from "../admin/movie";
 
 export default [
     {
@@ -10,7 +12,12 @@ export default [
         children : [
             {
                 path:"",
-                loadComponent : () => import("./home/home.component").then(c => c.HomeComponent)
+                providers:[GenreService,MovieService],
+                loadComponent : () => import("./home/home.component").then(c => c.HomeComponent),
+                children:[{
+                    path:"genre/:genreId",
+                    loadComponent : () => import("./gere-movies/gere-movies.component").then(c => c.GereMoviesComponent)
+                }]
             },
             {
                 path:"login",

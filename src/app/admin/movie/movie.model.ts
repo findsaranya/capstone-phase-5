@@ -37,3 +37,7 @@ export interface IMovieListPayload{
     size:number
 }
 
+export interface IGnereMoviesPayload extends IMovieListPayload {
+    genre: IGenre;
+   
+}

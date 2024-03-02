@@ -1,0 +1,7 @@
+<a [routerLink]="['/']">Back Home</a>
+{{ dataSource$ | async | json}}
+<mat-paginator [length]="pagination.totalPages"
+                [pageSize]="pagination.size"
+                [pageSizeOptions]="[pagination.size]"
+                aria-label="Select page">
+  </mat-paginator>

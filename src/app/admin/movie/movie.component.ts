@@ -1,5 +1,5 @@
-import { Component, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, ViewChild, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,11 +9,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, map, of, tap } from 'rxjs';
 import { IGenre, IMovie, ITheatre } from 'src/app/shared';
 import { environment } from 'src/environments/environment.development';
-import { ModalTheaterFormComponent } from '../theatre/modal-theater-form/modal-theater-form.component';
-import { ITheatreModalData } from '../theatre/theatre.model';
-import { ModalMovieFormComponent } from './modal-movie-form/modal-movie-form.component';
-import { TheatreService } from '../theatre';
 import { GenreService } from '../genre';
+import { TheatreService } from '../theatre';
+import { ModalMovieFormComponent } from './modal-movie-form/modal-movie-form.component';
 import { IMovieModalData } from './movie.model';
 import { MovieService } from './movie.service';
 
@@ -24,7 +22,7 @@ import { MovieService } from './movie.service';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatPaginatorModule,],
+    MatPaginatorModule],
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.scss']
 })

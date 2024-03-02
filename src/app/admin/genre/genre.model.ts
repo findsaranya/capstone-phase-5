@@ -26,6 +26,10 @@ export interface IGenreListResponse extends IAPIResponse<IGenreData>{
     data : IGenreData
 }
 
+export interface IGenreByIdResponse extends IAPIResponse<IGenre>{
+    data : IGenre
+}
+
 export interface IGenresList extends  IAPIResponse<IGenre[]>{
     data : IGenre[];
 }
