@@ -1,6 +1,7 @@
 import { Route } from "@angular/router";
 import { nonUserGuard, userGuard } from "../core";
 import { Role } from "../shared";
+import { RegisterService } from "./register";
 
 export default [
     {
@@ -19,6 +20,7 @@ export default [
             {
                 path:"register",
                 canActivate:[nonUserGuard],
+                providers:[RegisterService],
                 loadComponent : () => import("./register/register.component").then(c => c.RegisterComponent)
             },
             {

@@ -1,12 +1,13 @@
+import { NgClass, NgIf } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLinkWithHref } from '@angular/router';
 import { ILoginForm } from '../shared.model';
 
 @Component({
   selector: 'shared-login',
   standalone: true,
-  imports: [NgIf,NgClass,ReactiveFormsModule],
+  imports: [NgIf,NgClass,ReactiveFormsModule,RouterLinkWithHref],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
