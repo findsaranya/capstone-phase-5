@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core';
 import { SharedLoginComponent } from 'src/app/shared';
 import { ILoginForm } from 'src/app/shared/shared.model';
@@ -18,6 +19,7 @@ export class LoginComponent {
   errorMsg = "";
   private _authService = inject(AuthService);
   private _router = inject(Router);
+  private _toastr: ToastrService = inject(ToastrService);
 
   onSubmit(loginDetails : ILoginForm):void{
     this._authService.userLogin(loginDetails).subscribe({
@@ -26,7 +28,8 @@ export class LoginComponent {
         this._authService.changeUserLoggedInStatus(true);
         this._authService.user = response;
         this._authService.setLocalStorage("userId",JSON.stringify(this._authService.user.id));
-        this._router.navigate(["/movies"]);
+        this._toastr.success("Success","You are LoggedIn");
+        this._router.navigate(["/dashboard"]);
       },
       error : (err:HttpErrorResponse) => {
         console.log(err);

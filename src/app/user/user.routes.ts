@@ -13,6 +13,7 @@ export default [
             {
                 path:"",
                 providers:[GenreService,MovieService],
+                canActivate:[nonUserGuard],
                 loadComponent : () => import("./home/home.component").then(c => c.HomeComponent),
                 children:[
                     {
@@ -40,6 +41,12 @@ export default [
                 canActivate:[userGuard],
                 data:{role:Role.USER},
                 loadComponent : () => import("./movies/movies.component").then(c=> c.MoviesComponent)
+            },
+            {
+                path:"dashboard",
+                canActivate:[userGuard],
+                data:{role:Role.USER},
+                loadComponent:() => import("./dashboard/dashboard.component").then(c=> c.DashboardComponent)
             },
             {
                 path:"logout",

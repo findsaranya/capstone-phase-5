@@ -5,13 +5,13 @@ import { GenreService } from 'src/app/admin/genre';
 import { Observable, map, of, switchMap, tap } from 'rxjs';
 import { IGnereMoviesPayload, MovieService } from 'src/app/admin/movie';
 import { environment } from 'src/environments/environment.development';
-import { IGenre, IMovie } from 'src/app/shared';
+import { IGenre, IMovie, MovieCardComponent } from 'src/app/shared';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-gere-movies',
   standalone: true,
-  imports: [CommonModule,RouterLinkWithHref, MatPaginatorModule],
+  imports: [CommonModule,RouterLinkWithHref, MatPaginatorModule,MovieCardComponent],
   templateUrl: './gere-movies.component.html',
   styleUrls: ['./gere-movies.component.scss']
 })
@@ -52,6 +52,10 @@ ngOnInit(): void {
 
 ngAfterViewInit(): void {
   this.paginator.page.pipe(tap(() => this.getGenreMovies())).subscribe();
+}
+
+bookTickets(movie:IMovie):void{
+  console.log(movie);
 }
 
 private getGenreMovies(intialLoad = false):void{

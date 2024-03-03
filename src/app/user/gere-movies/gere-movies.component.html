@@ -1,5 +1,10 @@
 <a [routerLink]="['/']">Back Home</a>
-{{ dataSource$ | async | json}}
+<div class="row">
+    <div class="col-md-3" *ngFor="let movie of dataSource$|async">
+        <shared-movie-card [movie]="movie" (onBookTicket)="bookTickets($event)"></shared-movie-card>
+    </div>
+</div>
+
 <mat-paginator [length]="pagination.totalPages"
                 [pageSize]="pagination.size"
                 [pageSizeOptions]="[pagination.size]"
