@@ -34,7 +34,7 @@ ngOnInit(): void {
    this._route.params.pipe(
         tap(genreId =>{
           this.genreId = genreId['genreId'];
-          this.getGenreMovies();
+          this.getGenreMovies(true);
         }),
         // switchMap(params =>  this._genreService.getGenreById(params['genreId']).pipe(tap(genResponse => this._genre=genResponse)    
         // ,switchMap(genre => {

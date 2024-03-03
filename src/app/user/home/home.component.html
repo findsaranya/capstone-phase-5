@@ -2,15 +2,12 @@
 <div class="row">
     <div class="col-md-4">
         <div class="list-group" *ngIf="genre$|async as genreList">
-            <a [routerLink]="['/genre',genre.id]" routerLinkActive="active" class="list-group-item list-group-item-action" aria-current="true" *ngFor="let genre of genreList" >
+            <a [routerLink]="['/genre',genre.id]" [routerLinkActive]="['active']" class="list-group-item list-group-item-action" aria-current="true" *ngFor="let genre of genreList" >
               {{genre.name}}
             </a>
           </div>
     </div>
-    <div class="col-md-8">
-        {{showCarousel}}
-        <p *ngIf="showCarousel">home works! carousel</p>
-        
+    <div class="col-md-8">  
         <router-outlet></router-outlet>
     </div>
 </div>

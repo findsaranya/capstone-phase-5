@@ -14,7 +14,12 @@ export default [
                 path:"",
                 providers:[GenreService,MovieService],
                 loadComponent : () => import("./home/home.component").then(c => c.HomeComponent),
-                children:[{
+                children:[
+                    {
+                     path:"",
+                     loadComponent:() => import("./carousel/carousel.component").then(c => c.CarouselComponent)
+                    },
+                    {
                     path:"genre/:genreId",
                     loadComponent : () => import("./gere-movies/gere-movies.component").then(c => c.GereMoviesComponent)
                 }]
