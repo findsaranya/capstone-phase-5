@@ -1,1 +1,5 @@
-<p>dashboard works!</p>
+<div class="row">
+    <div class="col-md-3 mx-auto" *ngFor="let movie of recentMovies$|async">
+        <shared-movie-card [movie]="movie"></shared-movie-card>
+    </div>
+</div>

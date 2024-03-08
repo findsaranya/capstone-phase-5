@@ -22,6 +22,10 @@ export interface IMovieResponse extends IAPIResponse<string> {
 data :string;
 }
 
+export interface IRecentMovieResponse extends IAPIResponse<IMovie[]> {
+    data :IMovie[];
+    }
+
 export interface IMovieData {
     movies: IMovie[];
     totalItems:  number;

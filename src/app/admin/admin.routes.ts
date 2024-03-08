@@ -19,6 +19,7 @@ export default [{
         },
         {
             path:"dashboard",
+            providers:[MovieService],
             loadComponent : () => import("./dashboard/dashboard.component").then(c => c.DashboardComponent)
         },
         {

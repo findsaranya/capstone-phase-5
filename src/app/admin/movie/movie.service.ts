@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { IMovie } from 'src/app/shared';
-import { IGnereMoviesPayload, IMovieData, IMovieListPayload, IMovieListResponse, IMovieResponse } from './movie.model';
+import { IGnereMoviesPayload, IMovieData, IMovieListPayload, IMovieListResponse, IMovieResponse, IRecentMovieResponse } from './movie.model';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { movieEndpoints } from './movie.endpoint';
@@ -18,6 +18,11 @@ export class MovieService {
     getMovies(payload:IMovieListPayload):Observable<IMovieData>{
         const url = environment.apiUrl + movieEndpoints.getAll;
         return this._http.post<IMovieListResponse>(url,payload).pipe(map(response => response.data));
+    }
+
+    getRecentMovies():Observable<IMovie[]>{
+        const url = environment.apiUrl + movieEndpoints.getRecentMovies;
+        return this._http.get<IRecentMovieResponse>(url).pipe(map(response => response.data))
     }
 
     deleteMovie(id:number):Observable<string>{
