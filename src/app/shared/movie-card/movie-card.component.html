@@ -1,8 +1,10 @@
 <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <button class="btn btn-primary" (click)="bookTicket()">Go somewhere</button>
+    <img [src]="'assets/no-preview.jpg'" class="card-img-top" alt="...">
+    <div class="card-body" *ngIf="movie">
+      <h5 class="card-title">{{movie.name | titlecase}}</h5>
+      <p class="card-text">Genre : {{movie.genre.name | titlecase}}</p>
+      <p class="card-text">Language : {{movie.language | titlecase}}</p>
+      <p class="card-text">Synopsis : {{movie.description}}</p>
+      <button class="btn btn-primary" (click)="bookTicket()" *ngIf="showBookingBtn">Book Tickets</button>
     </div>
   </div>

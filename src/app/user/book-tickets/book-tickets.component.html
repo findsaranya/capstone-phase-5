@@ -1,0 +1,25 @@
+<div class="row justify-content-center align-items-center">
+  <div class="col-md-5">
+    <form [formGroup]="bookTicketForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Theaters</mat-label>
+        <mat-select formControlName="theater" placeholder="select a Theater">
+          <mat-option
+            [value]="theater"
+            *ngFor="let theater of movieInfo?.movieTheater"
+            >{{ theater.name | titlecase }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Show Timings</mat-label>
+        <mat-select formControlName="showTiming">
+          <mat-option [value]="showTime" *ngFor="let showTime of showTimings">{{
+            showTime.showTime | titlecase
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button type="submit" class="btn btn-primary" [disabled]="bookTicketForm.invalid">Book Seats</button>
+    </form>
+  </div>
+</div>

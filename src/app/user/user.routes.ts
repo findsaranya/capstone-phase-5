@@ -45,9 +45,32 @@ export default [
             {
                 path:"dashboard",
                 canActivate:[userGuard],
+                providers:[GenreService,MovieService],
                 data:{role:Role.USER},
                 loadComponent:() => import("./dashboard/dashboard.component").then(c=> c.DashboardComponent)
             },
+            {
+                path:"book-tickets",
+                canActivate:[userGuard],
+                providers:[GenreService,MovieService],
+                data:{role:Role.USER},
+                loadComponent:() => import("./book-tickets/book-tickets.component").then(c=> c.BookTicketsComponent)
+            },
+            {
+                path:"book-seats",
+                canActivate:[userGuard],
+                providers:[GenreService,MovieService],
+                data:{role:Role.USER},
+                loadComponent:() => import("./book-seats/book-seats.component").then(c=> c.BookSeatsComponent)
+            },
+            {
+                path:"payment",
+                canActivate:[userGuard],
+                providers:[],
+                data:{role:Role.USER},
+                loadComponent:() => import("./payment/payment.component").then(c=> c.PaymentComponent)
+            },
+
             {
                 path:"logout",
                 canActivate:[userGuard],

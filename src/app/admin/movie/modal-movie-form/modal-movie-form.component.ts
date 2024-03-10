@@ -7,11 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Observable, of } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { IGenre, IMovie, ITheatre } from 'src/app/shared';
 import { IMovieForm, IMovieModalData } from '../movie.model';
 import { MovieService } from '../movie.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modal-movie-form',

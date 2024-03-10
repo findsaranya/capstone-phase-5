@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-md-5">
+    <div class="border border border-secondary rounded p-2">
+      <p>Movie Name : {{ bookedDetails?.movie }}</p>
+      <p>Theater Name : {{ bookedDetails?.theater }}</p>
+      <p>No of Seats : {{ bookedDetails?.noOfSeats }}</p>
+      <p>Type : {{ bookedDetails?.seatTypes }}</p>
+      <p>Ticket Price :{{ bookedDetails?.ticketPrice }}</p>
+      <p>Total Cost : {{ bookedDetails?.totalCost }}</p>
+    </div>
+  </div>
+  <!-- formControlName="email"
+    [ngClass]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched ? ['border','border-danger'].join(' ') : null" -->
+  <div class="col-md-6">
+    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="total" class="form-label">Total Amount</label>
+        <input
+          type="text"
+          class="form-control"
+          name="email"
+          formControlName="total"
+          aria-describedby="emailHelp"
+          readonly
+        />
+      </div>
+      <div class="mb-3">
+        <label for="cardNo" class="form-label">Card Number</label>
+        <input
+          type="text"
+          class="form-control"
+          name="cardNo"
+          aria-describedby="cardNo"
+          formControlName="cardNo"
+        />
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="expiry-date" class="form-label">Expiry Date</label>
+            <input
+              type="text"
+              class="form-control"
+              name="expiry-date"
+              aria-describedby="expiry-date"
+              formControlName="expiryDate"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="cvv" class="form-label">CVV</label>
+            <input
+              type="text"
+              class="form-control"
+              name="cvv"
+              aria-describedby="cvv"
+              formControlName="cvv"
+            />
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Pay Amount</button>
+    </form>
+  </div>
+</div>

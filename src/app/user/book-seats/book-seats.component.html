@@ -1,0 +1,17 @@
+<ng-container  *ngIf="movieTheaterInfo && movieTheaterInfo?.theater?.ticketPrice?.length">
+<div class="row">
+    <ng-container *ngFor="let movieInfo of movieTheaterInfo.theater.ticketPrice;let i = index">
+      <h4>{{movieInfo.type}}</h4>
+      <div class="col-md-12 my-2 p-3 d-flex flex-wrap border border-black rounded">
+      <app-seat-name  *ngFor="let seats of movieInfo |seatPipe;let j=index"
+       [seatInfo]="movieInfo"
+      [seatNo]="movieInfo.type.charAt(0).toUpperCase()+(j+1)"
+      (onSeatbooking)="bookSeats($event)"
+      ></app-seat-name>
+      </div>
+    </ng-container>
+
+</div>
+</ng-container>
+<button class="btn btn-primary" [disabled]="!bookedSeats.length" (click)="navigateToPayment()">Payment</button>
+

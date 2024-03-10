@@ -11,6 +11,7 @@ import { IMovie } from '../shared.model';
 })
 export class MovieCardComponent {
 @Input() movie :IMovie|null = null;
+@Input()showBookingBtn = false;
 @Output() onBookTicket = new EventEmitter<IMovie>();
 
 bookTicket():void{
