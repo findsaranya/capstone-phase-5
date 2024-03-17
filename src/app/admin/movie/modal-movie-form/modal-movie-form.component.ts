@@ -109,7 +109,7 @@ export class ModalMovieFormComponent implements OnInit {
    console.log(this.movieForm.value);
    this.movieService.createMovie(this.movieForm.value as IMovie).subscribe({
     next: () => {
-      this._toastr.success('Genre added Successfully');
+      this._toastr.success('Movie added Successfully');
       this._dialogRef.close('success');
       this.movieForm.reset();
     },

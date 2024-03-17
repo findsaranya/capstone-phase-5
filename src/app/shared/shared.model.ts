@@ -12,6 +12,12 @@ export interface IUser {
   location: string;
 }
 
+export interface IAdmin{
+  id:number;
+  role: string;
+  name: string;
+}
+
 export enum Role {
   USER = 'USER',
   ADMIN = 'ADMIN',
@@ -51,6 +57,7 @@ export interface ITicketPrice {
   price: number;
 }
 
+
 export interface IMovie {
   id:number;
   name:         string;
@@ -58,4 +65,22 @@ export interface IMovie {
   description:  string;
   genre:        IGenre;
   movieTheater: ITheatre[];
+}
+
+export interface IMovieSearchPayload {
+page : number;
+size:number;
+name?:string;
+genreId ?: number;
+}
+
+export interface IMovieSearchData {
+  movies: IMovie[];
+  totalItems:  number;
+  totalPages:  number;
+  currentPage: number;
+}
+
+export interface IMovieListResponse extends IAPIResponse<IMovieSearchData>{
+  data : IMovieSearchData;
 }

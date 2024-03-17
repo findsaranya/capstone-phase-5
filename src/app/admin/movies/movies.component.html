@@ -1,4 +1,4 @@
-<a [routerLink]="['/']">Back Home</a>
+
 <shared-page-loader [isPageLoading]="isPageLoading"></shared-page-loader>
 <form class="row my-3" [formGroup]="searchForm">
     <div class="col-md-4">
@@ -8,6 +8,12 @@
         aria-describedby="emailHelp">
       </div>
       <div class="col-md-4">
+        <select class="form-select" aria-label="Default select example" formControlName="genre">
+            <option selected>Search by genre</option>
+            <option *ngFor="let genre of genreSource$|async" [value]="genre.id">{{genre.name}}</option>
+          </select>
+      </div>
+      <div class="col-md-4">
         <button class="btn btn-primary" (click)="resetSearch()">Reset Filters</button>
       </div>
       
@@ -15,7 +21,7 @@
 
 <div class="row">
     <div class="col-md-3" *ngFor="let movie of dataSource$|async">
-        <shared-movie-card [movie]="movie" (onBookTicket)="bookTickets($event)" [showBookingBtn]="true"></shared-movie-card>
+        <shared-movie-card [movie]="movie"></shared-movie-card>
     </div>
 </div>
 

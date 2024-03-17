@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { ILoginForm, IUser } from '../shared/shared.model';
+import { IAdmin, ILoginForm, IUser } from '../shared/shared.model';
 import { HttpClient } from '@angular/common/http';
 import { IUserResponse } from './auth.model';
 import { environment } from 'src/environments/environment.development';
@@ -9,7 +9,7 @@ import { authEndpoints } from './authEndpoints';
 @Injectable()
 export class AuthService {
   private _user:IUser | null = null;
-  private _admin:IUser|null = null;
+  private _admin:IAdmin|null = null;
   private _userLoggedIn = new BehaviorSubject<boolean>(false);
   private _adminLoggedIn = new BehaviorSubject<boolean>(false);
   private _http:HttpClient = inject(HttpClient);
@@ -23,7 +23,7 @@ export class AuthService {
     return this._user || null;
   }
 
-  get admin():IUser | null {
+  get admin():IAdmin | null {
     return this._admin || null;
   }
 
@@ -31,7 +31,7 @@ export class AuthService {
      this._user = userInfo;
   }
 
-  set admin(admiInfo:IUser){
+  set admin(admiInfo:IAdmin){
     this._admin = admiInfo;
   }
 
@@ -71,6 +71,16 @@ export class AuthService {
   getUser(userId:string):Observable<IUser>{
     const url = environment.apiUrl;
     return this._http.get<IUserResponse>(url+ authEndpoints.getUser+userId).pipe(map(response => response.data))
+  }
+
+  adminLogin(payload:ILoginForm):Observable<IUser>{
+    const url = environment.apiUrl;
+    return this._http.post<IUserResponse>(url+ authEndpoints.adminLogin,payload).pipe(map(response => response.data))
+  }
+
+  getAdmin(adminId:string):Observable<IUser>{
+    const url = environment.apiUrl;
+    return this._http.get<IUserResponse>(url+ authEndpoints.getAdmin+adminId).pipe(map(response => response.data))
   }
 
   logoutUser():void{

@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
@@ -8,7 +9,7 @@ import { ILoginForm, SharedLoginComponent } from 'src/app/shared';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [SharedLoginComponent],
+  imports: [SharedLoginComponent,NgIf],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -20,7 +21,7 @@ export class LoginComponent {
   private _toastr: ToastrService = inject(ToastrService);
 
   onSubmit(loginDetails : ILoginForm):void{
-    this._authService.userLogin(loginDetails).subscribe({
+    this._authService.adminLogin(loginDetails).subscribe({
       next : (response) => {
         this._authService.changeAdminLoggedInStatus(true);
         this._authService.admin = response;
@@ -29,7 +30,8 @@ export class LoginComponent {
         this._router.navigate(["/admin"]);
       },
       error : (err:HttpErrorResponse) => {
-        this._toastr.error("Failure",err.error.message);
+        this.errorMsg = err.error.message
+        this.loginFailure=true;
       }
     });
   }

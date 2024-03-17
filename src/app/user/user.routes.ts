@@ -1,6 +1,6 @@
 import { Route } from "@angular/router";
 import { nonUserGuard, userGuard } from "../core";
-import { Role } from "../shared";
+import { Role, SharedService } from "../shared";
 import { RegisterService } from "./register";
 import { GenreService } from "../admin/genre";
 import { MovieService } from "../admin/movie";
@@ -12,7 +12,7 @@ export default [
         children : [
             {
                 path:"",
-                providers:[GenreService,MovieService],
+                providers:[GenreService,MovieService,SharedService],
                 canActivate:[nonUserGuard],
                 loadComponent : () => import("./home/home.component").then(c => c.HomeComponent),
                 children:[
@@ -39,6 +39,7 @@ export default [
             {
                 path:"movies",
                 canActivate:[userGuard],
+                providers:[SharedService,GenreService],
                 data:{role:Role.USER},
                 loadComponent : () => import("./movies/movies.component").then(c=> c.MoviesComponent)
             },

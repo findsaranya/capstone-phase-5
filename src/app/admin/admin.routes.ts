@@ -1,7 +1,7 @@
 import { Route } from "@angular/router";
 import { AdminComponent } from "./admin.component";
 import { adminGuard, nonAdminGuard } from "../core";
-import { Role } from "../shared";
+import { Role, SharedService } from "../shared";
 import { GenreService } from "./genre";
 import { TheatreService } from "./theatre";
 import { MovieService } from "./movie/movie.service";
@@ -36,6 +36,11 @@ export default [{
             path:"movie",
             providers:[TheatreService,GenreService,MovieService],
             loadComponent:() => import("./movie/movie.component").then(c=>c.MovieComponent)
+        },
+        {
+            path:"movies",
+            providers:[SharedService,GenreService],
+            loadComponent : () => import("./movies/movies.component").then(c=> c.MoviesComponent)
         },
         {
             path:"logout",
