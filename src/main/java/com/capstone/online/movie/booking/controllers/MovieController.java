@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.capstone.online.movie.booking.dto.GenrePageDTO;
 import com.capstone.online.movie.booking.dto.MovieDto;
 import com.capstone.online.movie.booking.dto.MovieGenreDto;
+import com.capstone.online.movie.booking.dto.MovieSearchDTO;
 import com.capstone.online.movie.booking.dto.ShowTimingDto;
 import com.capstone.online.movie.booking.dto.TheatreDto;
 import com.capstone.online.movie.booking.dto.TicketPriceDto;
@@ -29,6 +31,7 @@ import com.capstone.online.movie.booking.entity.APIResponse;
 import com.capstone.online.movie.booking.entity.Movie;
 import com.capstone.online.movie.booking.entity.ShowTimings;
 import com.capstone.online.movie.booking.entity.TicketPrice;
+import com.capstone.online.movie.booking.services.FilterSpecification;
 import com.capstone.online.movie.booking.services.IMovieService;
 
 @Controller
@@ -36,6 +39,7 @@ import com.capstone.online.movie.booking.services.IMovieService;
 public class MovieController {
 @Autowired
 private IMovieService movieService;
+
 
 @PostMapping(value = "/create")
 public ResponseEntity<?> createMovie(@RequestBody Movie movie){
@@ -129,8 +133,84 @@ public ResponseEntity<APIResponse> getMovies(@RequestBody GenrePageDTO genre){
 	response.setData(responseMovie);
 	return ResponseEntity.status(HttpStatus.OK).body(response);
 }
-	
 
+@PostMapping(value="/searchMovies")
+public ResponseEntity<APIResponse> searchMovies(@RequestBody MovieSearchDTO searchMovie){
+	APIResponse response = new APIResponse();
+	Specification<Movie> movieSpec = Specification.where(searchMovie.getName().isBlank() ? null : FilterSpecification.nameLike(searchMovie.getName())).and(searchMovie.getGenreId()== 0 ? null :FilterSpecification.hasGenreWithTitle(searchMovie.getGenreId()) );
+	
+	Pageable paging = PageRequest.of(searchMovie.getPage(), searchMovie.getSize());
+    List<MovieDto> movieDto = new ArrayList<MovieDto>();
+    Page<Movie> movies = movieService.movieSearch(movieSpec, paging);
+    movieDto = movies.getContent().stream().map(x -> {
+   	 MovieDto mv = new MovieDto();
+   	 mv.setId(x.getId());
+   	 mv.setName(x.getName());
+   	 mv.setLanguage(x.getLanguage());
+   	 mv.setGenre(x.getGenre());
+   	 mv.setDescription(x.getDescription());
+   	 
+   	 List<TheatreDto> theatreFinalList =	 x.getMovieTheater().stream().map(item -> {
+		  TheatreDto res = new TheatreDto();
+			res.setId(item.getId());
+			res.setName(item.getName());
+			res.setCity(item.getCity());
+			res.setLoc(item.getLoc());
+			res.setAddress(item.getAddress());
+			res.setPhoneNo(item.getLoc());
+			res.setTicketPrice(transformTicketPrice(item.getTicketPrice()));
+			res.setShowTimings(transformShowTimings(item.getShowTimings()));
+			return res;
+	  }).collect(Collectors.toList());
+   	 mv.setMovieTheater(theatreFinalList);
+   	 return mv;
+    }).toList();
+    Map<String, Object> responseMovie = new HashMap<>();
+    responseMovie.put("movies", movieDto);
+    responseMovie.put("currentPage", movies.getNumber());
+    responseMovie.put("totalItems", movies.getTotalElements());
+    responseMovie.put("totalPages", movies.getTotalPages());
+    response.setStatus(200);
+	response.setMessage("SUCCESS");
+	response.setData(responseMovie);
+	return ResponseEntity.status(HttpStatus.OK).body(response);
+}
+	
+@GetMapping(value="/recentMovies")
+public ResponseEntity<APIResponse> getRecentMovies(){
+	APIResponse response = new APIResponse();
+	
+   List<MovieDto> movieDto = new ArrayList<MovieDto>();
+   List<Movie> movies = movieService.getRecentMovies();
+   movieDto = movies.stream().map(x -> {
+  	 MovieDto mv = new MovieDto();
+  	 mv.setId(x.getId());
+  	 mv.setName(x.getName());
+  	 mv.setLanguage(x.getLanguage());
+  	 mv.setGenre(x.getGenre());
+  	 mv.setDescription(x.getDescription());
+  	 
+  	 List<TheatreDto> theatreFinalList =	 x.getMovieTheater().stream().map(item -> {
+		  TheatreDto res = new TheatreDto();
+			res.setId(item.getId());
+			res.setName(item.getName());
+			res.setCity(item.getCity());
+			res.setLoc(item.getLoc());
+			res.setAddress(item.getAddress());
+			res.setPhoneNo(item.getLoc());
+			res.setTicketPrice(transformTicketPrice(item.getTicketPrice()));
+			res.setShowTimings(transformShowTimings(item.getShowTimings()));
+			return res;
+	  }).collect(Collectors.toList());
+  	 mv.setMovieTheater(theatreFinalList);
+  	 return mv;
+   }).toList();
+  
+   response.setStatus(200);
+	response.setMessage("SUCCESS");
+	response.setData(movieDto);
+	return ResponseEntity.status(HttpStatus.OK).body(response);
+}
 
 @GetMapping(value="/delete/{id}")
 public ResponseEntity<APIResponse> deleteMovie(@PathVariable int id){

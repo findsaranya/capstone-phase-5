@@ -1,11 +1,13 @@
 package com.capstone.online.movie.booking.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.capstone.online.movie.booking.entity.Admin;
 import com.capstone.online.movie.booking.exception.CustomerNotFoundException;
 import com.capstone.online.movie.booking.repository.IAdminRepo;
 
+@Service
 public class AdminServiceImpl implements IAdminService {
 
 	@Autowired

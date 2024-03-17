@@ -1,5 +1,7 @@
 package com.capstone.online.movie.booking.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +19,11 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name="genre_tab")
-public class Genre {
+public class Genre implements Serializable {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 @Id
 @Column(name="genere_id")
 @GeneratedValue(strategy = GenerationType.IDENTITY)
