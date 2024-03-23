@@ -39,6 +39,6 @@ private String phoneNo;
 private String address;
 @OneToMany(mappedBy = "ticketTheatre",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
 private List<TicketPrice> ticketPrice;
-@OneToMany(mappedBy = "theatre",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+@OneToMany(mappedBy = "theatre",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 private List<ShowTimings> showTimings;
 }

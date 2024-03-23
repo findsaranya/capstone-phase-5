@@ -37,33 +37,37 @@ public class TheatreController {
 	ITheaterService theatreService;
 	
 	@PostMapping(value = "/create")
-	public ResponseEntity<?> createGenre(@RequestBody TheatreDto theatre){
+	public ResponseEntity<?> createTheater(@RequestBody TheatreDto theatre){
 		 if (theatre == null)
 		        return ResponseEntity.badRequest().body("The provided theater is not valid");
 		        Theater thert = new Theater();
 		        APIResponse responseFinal = new APIResponse();
+		        thert.setCity(theatre.getCity());
+		        thert.setLoc(theatre.getLoc());
+		        thert.setName(theatre.getName());
+		        thert.setPhoneNo(theatre.getPhoneNo());
+		        thert.setAddress(theatre.getAddress());
+		        thert.setId(theatre.getId() == 0 ? 0 : theatre.getId());
 		        List<TicketPrice> priceList = theatre.getTicketPrice().stream().map(x -> {
 		        	TicketPrice newPrice = new TicketPrice();
 		        	newPrice.setTicketTheatre(thert);
 		        	newPrice.setPrice(x.getPrice());
 		        	newPrice.setTotalSeats(x.getTotalSeats());
 		        	newPrice.setType(x.getType());
+		        	newPrice.setId(x.getId() == 0 ? 0 : x.getId());
 		        	return newPrice;
 		        }).collect(Collectors.toList());
+		        thert.setTicketPrice(priceList);
 		        List<ShowTimings> showTimeList = theatre.getShowTimings().stream().map(y -> {
 		        	ShowTimings newShowTime = new ShowTimings();
 		        	newShowTime.setTheatre(thert);
 		        	newShowTime.setShowTime(y.getShowTime());
-		        	newShowTime.setId(y.getId());
+		        	newShowTime.setId(y.getId() == 0 ? 0 : y.getId());
 		        	return newShowTime;
 		        }).collect(Collectors.toList());
-		        thert.setCity(theatre.getCity());
-		        thert.setLoc(theatre.getLoc());
-		        thert.setName(theatre.getName());
-		        thert.setPhoneNo(theatre.getPhoneNo());
 		        thert.setShowTimings(showTimeList);
-		        thert.setTicketPrice(priceList);
-		        thert.setAddress(theatre.getAddress());
+		        
+		      
 		        theatreService.createTheater(thert);
 		    	responseFinal.setStatus(200);
 				responseFinal.setMessage("SUCCESS");
@@ -74,7 +78,7 @@ public class TheatreController {
 	@PostMapping(value="/getAll")
 	public ResponseEntity<APIResponse> getAllTheatres(@RequestBody TheatreRequestDTO request ){
 		   APIResponse responseFinal = new APIResponse();
-		   Pageable paging = PageRequest.of(request.getPage(), request.getSize(),Sort.by("id").ascending());
+		   Pageable paging = PageRequest.of(request.getPage(), request.getSize(),Sort.by("id").descending());
 		   Page<Theater> theatreList = theatreService.getAllTheater(paging);
 			  Map<String, Object> responseTheatre = new HashMap<>();
 		List<TheatreDto> theatreFinalList =	  theatreList.getContent().stream().map(x -> {

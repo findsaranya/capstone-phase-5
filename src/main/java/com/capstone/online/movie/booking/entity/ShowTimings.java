@@ -29,7 +29,7 @@ public class ShowTimings {
 	private int id;
 	@Column(name = "show_time")
 	private String showTime;
-	@ToString.Exclude
+	//@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
 	@JoinColumn(name = "TheaterId")
 	private Theater theatre;

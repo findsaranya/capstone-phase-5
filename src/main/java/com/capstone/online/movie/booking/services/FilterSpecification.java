@@ -1,6 +1,7 @@
 package com.capstone.online.movie.booking.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.capstone.online.movie.booking.dto.SearchDTO;
 import com.capstone.online.movie.booking.entity.Genre;
 import com.capstone.online.movie.booking.entity.Movie;
+import com.capstone.online.movie.booking.entity.Seats;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -48,5 +50,18 @@ public static Specification<Movie> hasGenreWithTitle(int genreId) {
         Join< Movie,Genre> genreMovies = root.join("genre",JoinType.INNER);
         return criteriaBuilder.equal(genreMovies.get("id"),genreId);
     };
+}
+
+public static Specification<Seats> hasTheaterId(int theaterId) {
+    return (root, query, builder) -> builder.equal(root.get("theaterId"),theaterId);
+}
+public static Specification<Seats> hasMovieId(int movieId) {
+    return (root, query, builder) -> builder.equal(root.get("movieId"),movieId);
+}
+public static Specification<Seats> hasShowTime(String showTime) {
+    return (root, query, builder) -> builder.equal(root.get("showTime"),showTime);
+}
+public static Specification<Seats> hasShowDate(Date showDate) {
+    return (root, query, builder) -> builder.equal(root.get("showDate"),showDate);
 }
 }
