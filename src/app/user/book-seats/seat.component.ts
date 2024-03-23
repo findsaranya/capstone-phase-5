@@ -8,7 +8,7 @@ import { NgClass } from '@angular/common';
     standalone:true,
     imports:[NgClass],
     template : `
-    <div class="seats mx-1 my-1" [ngClass]="{'bg-secondary': isVisited ,'bg-success' : !isVisited,'bg-danger':isBooked}" (click)="checkSeat()"></div>
+    <div class="seats mx-1 my-1" [ngClass]="{'bg-secondary': isVisited ,'bg-success' : !isVisited,'disabled-btn':isBooked}" (click)="checkSeat()"></div>
     `,
     styleUrls: ['./book-seats.component.scss']
 })

@@ -4,6 +4,7 @@ import { Role, SharedService } from "../shared";
 import { RegisterService } from "./register";
 import { GenreService } from "../admin/genre";
 import { MovieService } from "../admin/movie";
+import { BookedSeatService } from "./book-seats/book-seats.service";
 
 export default [
     {
@@ -60,14 +61,14 @@ export default [
             {
                 path:"book-seats",
                 canActivate:[userGuard],
-                providers:[GenreService,MovieService],
+                providers:[GenreService,MovieService,BookedSeatService],
                 data:{role:Role.USER},
                 loadComponent:() => import("./book-seats/book-seats.component").then(c=> c.BookSeatsComponent)
             },
             {
                 path:"payment",
                 canActivate:[userGuard],
-                providers:[],
+                providers:[BookedSeatService],
                 data:{role:Role.USER},
                 loadComponent:() => import("./payment/payment.component").then(c=> c.PaymentComponent)
             },

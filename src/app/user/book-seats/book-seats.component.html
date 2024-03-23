@@ -5,6 +5,8 @@
       <div class="col-md-12 my-2 p-3 d-flex flex-wrap border border-black rounded">
       <app-seat-name  *ngFor="let seats of movieInfo |seatPipe;let j=index"
        [seatInfo]="movieInfo"
+       [isBooked]="seatNos.includes(movieInfo.type.charAt(0).toUpperCase()+(j+1))"
+       [disabled]="seatNos.includes(movieInfo.type.charAt(0).toUpperCase()+(j+1))"
       [seatNo]="movieInfo.type.charAt(0).toUpperCase()+(j+1)"
       (onSeatbooking)="bookSeats($event)"
       ></app-seat-name>
