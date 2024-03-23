@@ -25,7 +25,6 @@ export class SharedLoginComponent {
   onSubmit():void{
 
     if (this.loginForm.valid) {
-      console.log(this.loginForm);
     
       this.loginFromEmit.next({
         email:this.loginForm.value.email || " ",

@@ -32,7 +32,6 @@ export class LoginComponent {
         this._router.navigate(["/dashboard"]);
       },
       error : (err:HttpErrorResponse) => {
-        console.log(err);
         this.errorMsg = err.error.message
         this.loginFailure=true;
 

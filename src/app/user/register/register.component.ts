@@ -51,7 +51,6 @@ private _router = inject(Router);
         this._router.navigate(["/movies"]);
       },
       error : (err:HttpErrorResponse) => {
-        console.log(err,Object.keys(err.error),err.error);
         const errorkeys = Object.keys(err.error);
         const formControls = Object.keys(this.registerForm.value);
         if(formControls.some(x => errorkeys.findIndex((_) => x)!== -1)){

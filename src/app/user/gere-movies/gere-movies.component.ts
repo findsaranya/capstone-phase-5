@@ -61,9 +61,7 @@ ngAfterViewInit(): void {
   this.paginator.page.pipe(tap(() => this.searchMovies())).subscribe();
 }
 
-bookTickets(movie:IMovie):void{
-  console.log(movie);
-}
+
 
 resetSearch():void{
   this.searchForm.reset();
@@ -71,7 +69,14 @@ resetSearch():void{
   this.paginator.firstPage();
 }
 
-
+bookTickets(movie:IMovie):void{
+  this._router.navigate([
+    "/book-tickets"],
+    {
+     state : {movie}
+    }
+  );
+}
 
 private searchMovies(intialLoad = false):void{
   const payload : IMovieSearchPayload = {
@@ -84,7 +89,6 @@ private searchMovies(intialLoad = false):void{
     genreId : this.genreId ,
     name : this.searchName
   }
-  console.log("paginator",this.paginator?.pageIndex,this.paginator)
   this.isPageLoading = true;
   this.dataSource$ = this._sharedService.searchMovies(payload).pipe(map(movieList => {
     this.pagination.totalPages = movieList.totalItems; 

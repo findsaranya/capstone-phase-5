@@ -34,7 +34,6 @@ export class BookTicketsComponent implements OnInit {
     this.movieInfo =
       this._router.getCurrentNavigation()?.extras?.state?.['movie'] || null;
       this.showTimings = this.movieInfo ? this.movieInfo.movieTheater[0].showTimings : [];
-    console.log('frm router', this.movieInfo);
   }
 
   ngOnInit(): void {
@@ -48,7 +47,6 @@ export class BookTicketsComponent implements OnInit {
   }
 
   onSubmit():void{
-    console.log(this.bookTicketForm.value);
     this._router.navigate([
       "/book-seats"],
       {

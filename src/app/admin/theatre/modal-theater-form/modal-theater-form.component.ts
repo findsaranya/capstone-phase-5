@@ -36,7 +36,7 @@ import { TheatreService } from '../theatre.service';
   ],
   providers: [TheatreService],
   template: `
-    <h2 mat-dialog-title>{{ 'Add Theatre' }}</h2>
+    <h2 mat-dialog-title>{{modalData?.editMode ?'Update Theater' :'Add Theatre' }}</h2>
     <mat-dialog-content>
       <form class="d-flex flex-column" [formGroup]="theaterForm">
         <input type="hidden" formControlName="id" />
@@ -172,7 +172,7 @@ import { TheatreService } from '../theatre.service';
         (click)="onSubmit()"
         [disabled]="theaterForm.invalid"
       >
-        {{ 'Save' }}
+        {{modalData?.editMode ? "Update" : 'Save' }}
       </button>
     </mat-dialog-actions>
   `,
@@ -208,11 +208,9 @@ export class ModalTheaterFormComponent implements OnInit {
     if (this.modalData?.editMode) {
       this.intializeForm();
     } else {
-      alert();
       this.addSeatType();
       this.addShowTimings();
     }
-    console.log('form', this.seatTypeFormArray, this.showTimingsFormArray);
   }
 
   addSeatType(): void {
@@ -232,12 +230,11 @@ export class ModalTheaterFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.theaterForm.value);
     const payload: ITheatrePayload = this.theaterForm.value as ITheatrePayload;
 
     this._theatreService.createTheatre(payload).subscribe({
       next: () => {
-        this._toastr.success('Genre added Successfully');
+        this._toastr.success(this.modalData?.editMode ?'Theater updated Successfully' :'Theater added Successfully');
         this._dialogRef.close('success');
         this.theaterForm.reset();
       },

@@ -59,7 +59,6 @@ export class TheatreComponent implements AfterViewInit,OnInit {
   }
 
   onEdit(theater:ITheatre):void{
-   console.log(theater);
    const modalData:ITheatreModalData = {
     theatreDetails : {...theater},
     editMode : true
@@ -81,9 +80,8 @@ export class TheatreComponent implements AfterViewInit,OnInit {
     if(confirmResult){
       this._thetareService.deleteTheatre(theatre.id || 0).subscribe({
         next:() => {
-          console.log("delted");
           this.getAll(true);
-          this._toastr.success("Genre deleted successfully");
+          this._toastr.success("Theater deleted successfully");
           
         },
         error:() => {

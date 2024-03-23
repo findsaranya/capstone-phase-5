@@ -14,7 +14,7 @@ import { BookedSeatService } from './book-seats.service';
   templateUrl: './book-seats.component.html',
   styleUrls: ['./book-seats.component.scss']
 })
-export class BookSeatsComponent implements OnInit {
+export class BookSeatsComponent {
 
   movieTheaterInfo :IMovieTheaterInfo| null = null;
   movieInfo: IMovie | null = null;
@@ -51,18 +51,10 @@ export class BookSeatsComponent implements OnInit {
     movieInfo : this.movieInfo,
     movieTheaterInfo : this.movieTheaterInfo
   }
-  console.log(bookedDetails)
   this._router.navigate(["/payment"],{
     state : {bookedDetails}
   })
  }
-
- 
- ngOnInit(): void {
-     console.log(this.movieTheaterInfo);
- }
-
-
 
 
 private getbookedSeats():void{
@@ -76,7 +68,6 @@ private getbookedSeats():void{
   this._seatService.getBookedSeats(payload).subscribe({
     next : bookedSeatsList => {
       this.seatNos = bookedSeatsList.map(seat => seat.seatNo);
-      console.log(this.seatNos)
     },
     error : () => this.seatNos = []
   })

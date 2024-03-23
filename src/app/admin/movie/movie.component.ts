@@ -77,7 +77,6 @@ export class MovieComponent {
   }
 
   onEdit(movie:IMovie):void{
-    console.log(movie);
     const modalData : IMovieModalData = {
       genreList : this.genreList,
       theaterList : this.theaterList,

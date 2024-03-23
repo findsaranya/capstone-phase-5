@@ -41,7 +41,6 @@ export class PaymentComponent implements OnInit {
   }
 
  onSubmit():void{
-  console.log(this.paymentForm);
   this.bookTheSeats();
   
  }

@@ -19,7 +19,7 @@ export class AppInitService {
                         }
 
                         if(adminId){
-                                forkArr.push(this.authService.getUser(adminId))
+                                forkArr.push(this.authService.getAdmin(adminId))
                         }
                         if(forkArr.length){
                                 forkJoin(forkArr).subscribe({

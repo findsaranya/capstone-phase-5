@@ -67,7 +67,6 @@ export class GenreComponent implements OnInit,AfterViewInit {
     if(confirmResult){
       this._genreService.deleteGenre(genre).subscribe({
         next:() => {
-          console.log("delted");
           this.getAllGenres(true);
           this._toastr.success("Genre deleted successfully");
           

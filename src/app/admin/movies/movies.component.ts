@@ -49,7 +49,6 @@ export class MoviesComponent implements OnInit {
     })
     this.searchForm.controls['genre'].valueChanges.subscribe({
       next : (val) => {
-        console.log(val)
         this.genreId = parseInt(val);
         this.paginator.firstPage();
         this.searchMovies(true);
@@ -92,7 +91,6 @@ export class MoviesComponent implements OnInit {
       genreId : this.genreId,
       name : this.searchName
     }
-    console.log("paginator",this.paginator?.pageIndex,this.paginator)
     this.isPageLoading = true;
     this.dataSource$ = this._sharedService.searchMovies(payload).pipe(map(movieList => {
       this.pagination.totalPages = movieList.totalItems; 
